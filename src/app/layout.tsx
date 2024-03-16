@@ -6,7 +6,8 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "Kinde Auth",
   description: "Kinde with NextJS App Router",
@@ -76,6 +77,8 @@ export default async function RootLayout({
             </small>
           </div>
         </footer>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
