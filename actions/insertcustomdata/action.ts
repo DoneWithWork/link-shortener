@@ -12,13 +12,13 @@ import {createSafeActionClient} from "next-safe-action"
 
  const action = createSafeActionClient();
 
-export  const  createSafeNewLink = action(NewLinkFormSchema,async({name,originalLink})=>{
+export  const  createSafeNewCustomLink = action(NewLinkFormSchema,async({name,originalLink,customLink})=>{
   const { getUser, isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
     return {error: "Not authenticated! Please login!"}
   }
  
-  if(!name || !originalLink){
+  if(!name || !originalLink || !customLink){
     return {error: "Something went wrong!! No name or originalLink present"}
   }
   await connectDB();
@@ -27,13 +27,15 @@ export  const  createSafeNewLink = action(NewLinkFormSchema,async({name,original
   const NewLink = new LinkModel({
     name,
     originalLink,
+    customLink, 
     user_id: user?.id,
+    isCustom: true,
   })
   await NewLink.save()
   revalidatePath("/","layout")
   if(!NewLink){
-  return {error: "Could not create new link"}
+  return {error: "Could not create new custom link"}
   }else{
-  return {success: "New Link created"}
+  return {success: "New custom Link created"}
   }
 })

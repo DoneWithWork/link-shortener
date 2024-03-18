@@ -14,6 +14,10 @@ const LinksSchema = new mongoose.Schema(
     clicks: {
       type: Number,
       default: 0
+    },
+    isCustom:{
+      type: Boolean,
+      default: false
     }
   },
   {
