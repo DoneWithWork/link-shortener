@@ -1,10 +1,9 @@
 'use server'
-import { revalidatePath } from "next/cache";
 import {createSafeActionClient} from "next-safe-action"
 import { NewIDRedirect } from "@/lib/IdRedirect";
 import connectDB from "@/lib/connectDb";
 import LinkModel from "../../Models/LinkModel";
-import { redirect } from "next/dist/server/api-utils";
+
 
  const action = createSafeActionClient();
 
@@ -21,9 +20,13 @@ export const RedirectToLink = action(NewIDRedirect, async ({ id }) => {
             if(!link){
                 return {error: "No such link found"}
             }else{
+                link.clicks = link.clicks + 1;
+                await link.save();
                 return {success: "Found Link",originalLink:link.originalLink}
             }
         }else{
+            customLink.clicks = customLink.clicks + 1;
+            await customLink.save();
             return {success: "Found Link",originalLink:customLink.originalLink}
         }
      

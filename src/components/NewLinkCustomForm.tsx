@@ -21,8 +21,10 @@ import { NewLinkFormSchema } from "@/lib/NewLinkFormSchema";
 import { createSafeNewLink } from "../../actions/insertdata/actions";
 import { ToastContainer, toast } from "react-toastify";
 import { createSafeNewCustomLink } from "../../actions/insertcustomdata/action";
-
+import { NewCustomLinkFormSchema } from "@/lib/NewCustomFormLinkSchema";
+import { useRouter } from "next/navigation";
 export function NewCustomLinkForm() {
+  const router = useRouter();
   const notify = (message: string) =>
     toast.success(`${message}`, {
       position: "top-right",
@@ -47,8 +49,8 @@ export function NewCustomLinkForm() {
     });
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof NewLinkFormSchema>>({
-    resolver: zodResolver(NewLinkFormSchema),
+  const form = useForm<z.infer<typeof NewCustomLinkFormSchema>>({
+    resolver: zodResolver(NewCustomLinkFormSchema),
     defaultValues: {
       name: "",
       originalLink: "",
@@ -58,10 +60,12 @@ export function NewCustomLinkForm() {
   const { execute, result, status } = useAction(createSafeNewCustomLink, {
     onSuccess(data) {
       if (data.error) {
+        notifyError(`${data.error}`);
         console.log(data.error);
       }
       if (data.success) {
         notify("Create custom Link Successfully");
+        router.push("/dashboard");
         console.log(data.success);
       }
     },
@@ -69,7 +73,6 @@ export function NewCustomLinkForm() {
       console.log("creating new custom link");
     },
     onError(error) {
-      notifyError(`${error}`);
       if (error.serverError) {
         console.log("serverError");
       }
@@ -79,7 +82,7 @@ export function NewCustomLinkForm() {
     },
   });
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof NewLinkFormSchema>) {
+  function onSubmit(values: z.infer<typeof NewCustomLinkFormSchema>) {
     execute(values);
   }
   return (

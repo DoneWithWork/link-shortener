@@ -9,20 +9,25 @@ import { NewLinkFormSchema } from "@/lib/NewLinkFormSchema";
 import * as z from 'zod'
 import { revalidatePath } from "next/cache";
 import {createSafeActionClient} from "next-safe-action"
+import { NewCustomLinkFormSchema } from "@/lib/NewCustomFormLinkSchema";
 
  const action = createSafeActionClient();
 
-export  const  createSafeNewCustomLink = action(NewLinkFormSchema,async({name,originalLink,customLink})=>{
+export  const  createSafeNewCustomLink = action(NewCustomLinkFormSchema,async({name,originalLink,customLink})=>{
   const { getUser, isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
     return {error: "Not authenticated! Please login!"}
   }
  
+await connectDB();
   if(!name || !originalLink || !customLink){
     return {error: "Something went wrong!! No name or originalLink present"}
   }
-  await connectDB();
-  const user = await getUser();
+  const duplicate = await LinkModel.findOne({customLink:customLink,isCustom:true});
+  if(duplicate){
+    return {error: "Custom Link with that already exists"}
+  }
+  await connectDB();  const user = await getUser();
  
   const NewLink = new LinkModel({
     name,
@@ -32,7 +37,7 @@ export  const  createSafeNewCustomLink = action(NewLinkFormSchema,async({name,or
     isCustom: true,
   })
   await NewLink.save()
-  revalidatePath("/","layout")
+ 
   if(!NewLink){
   return {error: "Could not create new custom link"}
   }else{

@@ -22,6 +22,10 @@ export  const  createSafeNewLink = action(NewLinkFormSchema,async({name,original
     return {error: "Something went wrong!! No name or originalLink present"}
   }
   await connectDB();
+  const duplicate = await LinkModel.findOne({name:name});
+  if(duplicate){
+    return {error: "Shortned Link with that name already exists"}
+  }
   const user = await getUser();
  
   const NewLink = new LinkModel({

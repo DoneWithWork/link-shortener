@@ -58,6 +58,7 @@ export function NewLinkForm() {
   const { execute, result, status } = useAction(createSafeNewLink, {
     onSuccess(data) {
       if (data.error) {
+        notifyError(`${data.error}`);
         console.log(data.error);
       }
       if (data.success) {
@@ -69,7 +70,6 @@ export function NewLinkForm() {
       console.log("creating new link");
     },
     onError(error) {
-      notifyError(`${error}`);
       if (error.serverError) {
         console.log("serverError");
       }
@@ -80,6 +80,7 @@ export function NewLinkForm() {
   });
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof NewLinkFormSchema>) {
+    console.log("clicked");
     execute(values);
   }
   return (
@@ -114,7 +115,7 @@ export function NewLinkForm() {
               </FormItem>
             )}
           />
-         
+
           <Button disabled={status === "executing"} type="submit">
             Submit
           </Button>
