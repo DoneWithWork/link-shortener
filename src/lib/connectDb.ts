@@ -36,7 +36,9 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(process.env.DATABASE_URL, opts).then((mongoose) => {
+    const databaseUrl = process.env.DATABASE_URL || ''; // Ensure databaseUrl is defined
+
+    cached.promise = mongoose.connect(databaseUrl, opts).then((mongoose) => {
       return mongoose;
     });
   }
