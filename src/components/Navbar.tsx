@@ -31,7 +31,8 @@ const Navbar = () => {
           </div>
         </div>
         <p>
-          Made by <Link href="github.com/DoneWithWork">DoneWithWork</Link>
+          Made by{" "}
+          <Link href="https://github.com/DoneWithWork">DoneWithWork</Link>
         </p>
       </div>
     </>
