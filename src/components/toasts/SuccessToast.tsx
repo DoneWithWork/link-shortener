@@ -18,7 +18,7 @@ const SuccessToast = ({ message }: messageType) => {
     });
   useEffect(() => {
     notify();
-  }, []);
+  });
   return (
     <div>
       <ToastContainer

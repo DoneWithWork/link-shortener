@@ -1,18 +1,12 @@
 import "./globals.css";
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { ToastContainer, toast } from "react-toastify";
-import SideNavBar from "@/components/Sidebar";
+
 export const metadata = {
-  title: "Kinde Auth",
-  description: "Kinde with NextJS App Router",
+  title: "Shortify",
+  description: "simple url link shortening project",
 };
 
 export default async function RootLayout({

@@ -18,7 +18,7 @@ const ErrorToast = ({ message }: messageType) => {
     });
   useEffect(() => {
     notify();
-  }, []);
+  });
   return (
     <div>
       <ToastContainer

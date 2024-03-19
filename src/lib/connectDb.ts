@@ -1,3 +1,4 @@
+"use server"
 import mongoose from "mongoose";
 
 const DATABASE_URL = process.env.MONGODB_URI;
@@ -27,6 +28,7 @@ async function connectDB() {
     });
   }
   cached.conn = await cached.promise;
+  console.log(cached.conn)
   return cached.conn;
 }
 

@@ -33,5 +33,5 @@ export default function Page({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     execute({ id: params.id });
-  }, [params.id]); // Empty dependency array means this effect runs once on mount
+  }); // Empty dependency array means this effect runs once on mount
 }

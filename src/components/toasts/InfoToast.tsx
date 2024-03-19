@@ -18,7 +18,7 @@ const InfoToast = ({ message }: messageType) => {
     });
   useEffect(() => {
     notify();
-  }, []);
+  });
   return (
     <div>
       <ToastContainer

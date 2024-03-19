@@ -5,8 +5,10 @@ import {
 import Image from "next/image";
 import React from "react";
 import { MdCancel, MdEmail, MdSupervisorAccount } from "react-icons/md";
-
-const Settings = ({ toggle }) => {
+interface SettingsProps {
+  toggle: () => void;
+}
+const Settings: React.FC<SettingsProps> = ({ toggle }) => {
   const { user } = useKindeBrowserClient();
   return (
     <div className="z-10 absolute w-full h-full bg-black/50 flex flex-col items-center justify-center  ">
@@ -20,7 +22,8 @@ const Settings = ({ toggle }) => {
 
         <div className="border-2 black rounded-full mt-3">
           <Image
-            src={user?.picture}
+            alt="user profile picture"
+            src={user?.picture || "/bg.png"}
             width={70}
             height={70}
             className="rounded-full"

@@ -22,32 +22,11 @@ import { createSafeNewLink } from "../../actions/insertdata/actions";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessToast from "./toasts/SuccessToast";
 import { useRef } from "react";
-
+import { notify, notifyError } from "./ToastsComponents";
+import { useRouter } from "next/navigation";
 export function NewLinkForm() {
-  const notify = (message: string) =>
-    toast.success(`${message}`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  const notifyError = (message: string) =>
-    toast.error(`${message}`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
   // 1. Define your form.
+  const router = useRouter();
   const form = useForm<z.infer<typeof NewLinkFormSchema>>({
     resolver: zodResolver(NewLinkFormSchema),
     defaultValues: {
@@ -63,6 +42,7 @@ export function NewLinkForm() {
       }
       if (data.success) {
         notify("Create Link Successfully");
+        router.replace("/dashboard");
         console.log(data.success);
       }
     },

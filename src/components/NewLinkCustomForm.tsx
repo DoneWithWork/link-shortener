@@ -23,30 +23,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { createSafeNewCustomLink } from "../../actions/insertcustomdata/action";
 import { NewCustomLinkFormSchema } from "@/lib/NewCustomFormLinkSchema";
 import { useRouter } from "next/navigation";
+import { notify, notifyError } from "./ToastsComponents";
 export function NewCustomLinkForm() {
   const router = useRouter();
-  const notify = (message: string) =>
-    toast.success(`${message}`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  const notifyError = (message: string) =>
-    toast.error(`${message}`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof NewCustomLinkFormSchema>>({

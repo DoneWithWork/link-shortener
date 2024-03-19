@@ -2,7 +2,8 @@ import React from "react";
 import NavBarAuth from "./NavbarAuth";
 import Link from "next/link";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
-
+import Image from "next/image";
+import "../app/globals.css";
 const Navbar = () => {
   return (
     <>
@@ -13,7 +14,7 @@ const Navbar = () => {
         </div>
       </nav>
       <div className="p-20 mx-auto w-full mt-5">
-        <div className="flex flex-row">
+        <div className="flex flex-row gap-5">
           <div className="text-left  relative">
             <h1 className="text-6xl text-black font-bold font-mono">
               Free Short <br></br>Links for All
@@ -26,9 +27,12 @@ const Navbar = () => {
             </LoginLink>
           </div>
           <div>
-            <p>Some image</p>
+            <Image src={"/bg.png"} alt="bg" width={500} height={300}></Image>
           </div>
         </div>
+        <p>
+          Made by <Link href="github.com/DoneWithWork">DoneWithWork</Link>
+        </p>
       </div>
     </>
   );
